@@ -1,29 +1,41 @@
 {
   "expo": {
-    "name": "a0-project",
+    "name": "Gestión de Colaboradores",
     "slug": "snack-470a4d0f-ed66-402b-b4cc-0a68c7559ab7",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "jsEngine": "jsc"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "jsEngine": "jsc"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "Quickly generate React Native components with AI"
+    "description": "Quickly generate React Native components with AI",
+    "extra": {
+      "eas": {
+        "projectId": "ff529398-90b3-4cb6-9bb6-66d01cd0aa50"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ff529398-90b3-4cb6-9bb6-66d01cd0aa50"
+    }
   }
 }

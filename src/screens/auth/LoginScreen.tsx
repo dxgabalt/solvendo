@@ -4,14 +4,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { useTheme } from '../../context/ThemeContext';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
+import { RootStackParamList } from '../../../App';
 
 export default function LoginScreen() {
   const { theme, toggleTheme, isDarkMode } = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -112,7 +114,7 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar style={theme.dark ? 'light-content' : 'dark-content'} />
+      <StatusBar style={theme.dark ? 'light' : 'dark'} />
       <TouchableOpacity 
         style={styles.themeToggle} 
         onPress={toggleTheme} 

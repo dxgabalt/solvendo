@@ -37,7 +37,25 @@ import HistoryScreen from './src/screens/main/HistoryScreen';
 import NotificationsScreen from './src/screens/main/NotificationsScreen';
 import DeliveryReceptionScreen from './src/screens/main/DeliveryReceptionScreen';
 
-const Stack = createNativeStackNavigator();
+// Definir tipos de navegación
+export type RootStackParamList = {
+  Login: undefined;
+  ForgotPassword: undefined;
+  Register: undefined;
+  MainTabs: undefined;
+  Attendance: undefined;
+  CompletedShift: undefined;
+  ChangeStore: undefined;
+  CompleteStoreChange: undefined;
+  RequestDetail: { requestId: string };
+  Schedule: undefined;
+  Tasks: undefined;
+  Notifications: undefined;
+  DeliveryReception: undefined;
+};
+
+// Aplicar los tipos al Stack Navigator
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
 function MainTabNavigator() {
@@ -56,7 +74,8 @@ function MainTabNavigator() {
             iconName = focused ? 'calendar' : 'calendar-outline';
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
+          // Asegurar que iconName tenga un valor predeterminado
+          return <Ionicons name={iconName || 'home'} size={size} color={color} />;
         },
         tabBarStyle: {
           borderTopWidth: 0,
@@ -87,19 +106,18 @@ export default function App() {
   const colorScheme = _useColorScheme() as ColorSchemeName;
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  
-  // Simulamos carga inicial
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-  }, []);
 
   const [fontsLoaded] = useFonts({
     'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
     'Poppins-Medium': require('./assets/fonts/Poppins-Medium.ttf'),
     'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
   });
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+  }, []);
 
   if (isLoading || !fontsLoaded) {
     return (
@@ -116,14 +134,12 @@ export default function App() {
           <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             {!isAuthenticated ? (
-              // Rutas de autenticación
               <Stack.Group>
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
                 <Stack.Screen name="Register" component={RegisterScreen} />
               </Stack.Group>
             ) : (
-              // Rutas autenticadas
               <Stack.Group>
                 <Stack.Screen name="MainTabs" component={MainTabNavigator} />
                 <Stack.Screen name="Attendance" component={AttendanceScreen} />
